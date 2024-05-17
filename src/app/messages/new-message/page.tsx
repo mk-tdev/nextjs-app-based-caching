@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 
 import { addMessage } from "@/lib/messages";
 import FormActionButtons from "@/components/form-action";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 const NewMessage = ({ createPost }: any) => {
   const createMessage = async (formData: any) => {
@@ -10,6 +11,8 @@ const NewMessage = ({ createPost }: any) => {
     const message = formData.get("message");
     console.log("Creating new message:", message);
     addMessage(message);
+    // revalidatePath("/messages", "layout");
+    revalidateTag("msg");
     redirect("/messages");
   };
 
